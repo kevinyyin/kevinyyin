@@ -13,6 +13,10 @@ name: Update profile art
 permissions:
   contents: write
 
+# serialize runs so a push-triggered and a manual run can't race on the commit
+concurrency:
+  group: profile-art
+
 jobs:
   heatmap:
     runs-on: ubuntu-latest
