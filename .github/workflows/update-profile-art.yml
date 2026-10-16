@@ -24,6 +24,8 @@ jobs:
       GH_PROFILE_USER: ${{ github.repository_owner }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}   # branch tip, not the (possibly stale) trigger sha
 
       - uses: actions/setup-python@v5
         with:
