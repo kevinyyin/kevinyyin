@@ -5,8 +5,6 @@
 
 <h3><code>kevin@github ~ $ ./contributions.sh</code></h3>
 
-<img src="./contrib-heatmap.svg" width="860" alt="Kevin's GitHub contribution graph — auto-refreshed daily" />
-
 <br>
 <br>
 
@@ -15,8 +13,6 @@
      python scripts/prep_photo.py <photo.png> && python scripts/make_ascii_svg.py  -> ascii.svg -->
 
 <h3><code>kevin@github ~ $ whoami</code></h3>
-
-<img src="./stats.svg" width="420" alt="Kevin's GitHub streak and contribution stats — auto-refreshed daily" />
 
 <br>
 <br>
