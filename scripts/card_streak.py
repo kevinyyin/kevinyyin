@@ -1,5 +1,5 @@
 """Streak card: the ring with the current streak, and four number tiles."""
-from datetime import datetime
+from datetime import date, datetime
 
 import stats
 import textpath as tp
@@ -35,7 +35,7 @@ def _tile(x: float, y: float, w: float, h: float, name: str, value: str, unit: s
 
 
 def render(data: dict, theme: Theme, now: datetime) -> str:
-    today = now.date()
+    today = date.fromisoformat(data["days"][-1]["date"])  # saved data is shown as saved, never re-dated
     weeks = stats.weekly_streak(data["days"], today)
     best = data["best_day"]
     body = panel(W, HEIGHT, theme) + label(PAD_X, PAD_Y + 10, "Streak", theme) + _ring(data, theme)

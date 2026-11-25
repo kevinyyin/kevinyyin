@@ -1,6 +1,6 @@
 name: Update profile art
 
-# Refreshes the contribution graph + stats card SVGs daily from real data.
+# Rebuilds the profile cards and README from real data.
 # Runs daily, plus whenever you push to main, plus on-demand.
 
 "on":
@@ -18,8 +18,9 @@ concurrency:
   group: profile-art
 
 jobs:
-  heatmap:
+  update:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     env:
       GH_PROFILE_USER: ${{ github.repository_owner }}
     steps:
@@ -29,22 +30,36 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
 
       - name: Install dependencies
         run: pip install -r scripts/requirements.txt
 
-      - name: Scrape real contribution data (no auth needed)
+      # If a source is down, keep going with the last saved data so the profile
+      # still renders, then fail at the end so GitHub emails you.
+      - name: Fetch contributions (no auth needed)
+        id: contributions
+        continue-on-error: true
         run: python scripts/fetch_contributions.py
 
-      - name: Render animated contribution graph SVG
-        run: python scripts/generate_streak_svg.py "$GH_PROFILE_USER" contrib-heatmap.svg
+      - name: Fetch recent activity
+        id: activity
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/fetch_activity.py
 
-      - name: Render streak / numbers card
-        run: python scripts/render_stats_svg.py
+      - name: Render cards and README
+        run: python scripts/render.py
 
-      - name: Commit updated art
+      - name: Commit updated profile
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: refresh contribution graph [skip ci]"
-          file_pattern: "data/contributions.json contrib-heatmap.svg stats.svg"
+          commit_message: "chore: refresh profile [skip ci]"
+          file_pattern: "data profile README.md"
+
+      - name: Report a failed fetch
+        if: steps.contributions.outcome == 'failure' || steps.activity.outcome == 'failure'
+        run: |
+          echo "::error::A data fetch failed (contributions: ${{ steps.contributions.outcome }}, activity: ${{ steps.activity.outcome }}). The profile was rendered from the last saved data."
+          exit 1
