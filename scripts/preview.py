@@ -4,7 +4,7 @@ import os
 import re
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
-ORDER = ("banner", "streak", "contributions")
+ORDER = ("banner", "streak", "contributions", "recent")
 
 
 def _column(theme: str, bg: str) -> str:
@@ -21,9 +21,7 @@ def _column(theme: str, bg: str) -> str:
             body = body.replace("-light.svg", "-dark.svg")
         body = re.sub(r"\n\s*\n", "<p></p>", body.strip())
     else:  # before the README exists: whatever cards are in profile/
-        row = img("banner-left", "width:49.074%") + img("banner-art", "width:50.926%")
-        parts = [row] + [img(s) for s in ORDER]
-        parts.append("".join(img(f"recent-{i}") for i in (1, 2, 3)))
+        parts = [img(s) for s in ORDER]
         body = "".join(f"<p>{p}</p>" for p in parts if p)
     return f'<div style="background:{bg};padding:24px"><div style="width:846px;margin:0 auto;font-size:0">{body}</div></div>'
 

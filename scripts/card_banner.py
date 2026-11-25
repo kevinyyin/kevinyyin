@@ -1,8 +1,8 @@
 """
-Banner. With artwork it is two slices side by side (so each half can carry its
-own link): the name with its spark on the left, the animated pixel-art scene
-fading into the paper on the right. With config["art"] set to null it is one
-slice with a "Now building" panel instead.
+Banner: the name with its spark on the left and, on the right, the animated
+pixel-art scene fading into the paper. With config["art"] set to null the
+right side is a "Now building" panel instead. It is one image: two slices
+side by side leave a hairline seam on GitHub at fractional pixel widths.
 """
 import base64
 import os
@@ -79,7 +79,8 @@ def _spark_css(theme: Theme) -> str:
     return SPARK_CSS.format(ink=theme.ink, accent=theme.accent)
 
 
-def _art_slice(art: dict, theme: Theme) -> str:
+def _art(art: dict, theme: Theme) -> tuple[str, str]:
+    """(svg for the right-hand ART_W x HEIGHT area in its own coordinates, css)."""
     with open(os.path.join(ROOT, art["strip"]), "rb") as f:
         data = base64.b64encode(f.read()).decode()
     fw, fh, inset = art["frame_w"], art["frame_h"], art.get("inset", 0)
@@ -98,7 +99,6 @@ def _art_slice(art: dict, theme: Theme) -> str:
         f'<mask id="m" maskUnits="userSpaceOnUse" x="0" y="0" width="{ART_W}" height="{HEIGHT}">'
         f'<rect width="{ART_W}" height="{HEIGHT}" fill="url(#g)"/></mask>'
         "</defs>"
-        + panel(ART_W, HEIGHT, theme, "right")
         + '<g clip-path="url(#c)"><g mask="url(#m)">'
         # one frame of the sheet shows through this window; the two step animations walk the grid
         f'<svg width="{ART_W}" height="{HEIGHT}" viewBox="{inset} {inset} {fw - 2 * inset} {fh - 2 * inset}" '
@@ -109,7 +109,7 @@ def _art_slice(art: dict, theme: Theme) -> str:
     )
     if art.get("credit"):
         body += tp.text(ART_W - 12, HEIGHT - 12, art["credit"], "text-400", 11, CREDIT_FILL, anchor="end", opacity=0.8)
-    return doc(HEIGHT, body, css, width=ART_W)
+    return body, css
 
 
 def _now_building(activity: dict | None, theme: Theme) -> str:
@@ -127,19 +127,21 @@ def _now_building(activity: dict | None, theme: Theme) -> str:
                    tracking=-0.02)
     count = repo.get("commits", 0)
     out += tp.text(x + 16, y + 84, f"{count:,} commit{'' if count == 1 else 's'} this month", "text-400", 12, theme.muted)
-    if repo.get("language"):
-        out += tp.text(x + 16, y + 102, repo["language"], "text-400", 12, theme.muted)
+    language = tp.clean(repo.get("language") or "", "text-400")
+    if language:
+        out += tp.text(x + 16, y + 102, language, "text-400", 12, theme.muted)
     return out
 
 
-def render(config: dict, theme: Theme, activity: dict | None) -> list[tuple[str, str, float, str | None]]:
-    """[(slug, svg, width in card units, link or None), ...] left to right."""
-    links = config.get("links") or []
-    main_link = links[0]["url"] if links else None
+def render(config: dict, theme: Theme, activity: dict | None) -> str:
+    body = panel(W, HEIGHT, theme) + _text_block(config, theme)
+    css = _spark_css(theme)
     art = config.get("art")
     if art:
-        left = doc(HEIGHT, panel(LEFT_W, HEIGHT, theme, "left") + _text_block(config, theme),
-                   _spark_css(theme), width=LEFT_W)
-        return [("banner-left", left, LEFT_W, main_link), ("banner-art", _art_slice(art, theme), ART_W, art.get("url"))]
-    body = panel(W, HEIGHT, theme) + _text_block(config, theme) + _now_building(activity, theme)
-    return [("banner", doc(HEIGHT, body, _spark_css(theme) + PULSE_CSS), W, main_link)]
+        art_body, art_css = _art(art, theme)
+        body += f'<g transform="translate({LEFT_W},0)">{art_body}</g>'
+        css += art_css
+    else:
+        body += _now_building(activity, theme)
+        css += PULSE_CSS
+    return doc(HEIGHT, body, css)

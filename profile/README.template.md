@@ -9,4 +9,6 @@
 
 {{recent}}
 
+{{credit}}
+
 </div>

@@ -39,13 +39,16 @@ def _font(key: str):
 
 def clean(s: str, font: str) -> str:
     cmap = _font(font)[4]
-    kept = "".join(c if (ord(c) in cmap and not c.isspace()) else " " if c.isspace() else "" for c in s)
+    # keep what the font can draw; whitespace becomes a space; control characters and the rest are dropped
+    kept = "".join(" " if c.isspace() else c if (ord(c) in cmap and c.isprintable()) else "" for c in s)
     return " ".join(kept.split())
 
 
 @functools.cache
 def _shape(s: str, font: str) -> tuple[tuple[str, float, float, float], ...]:
     """Glyphs in font units: (glyph name, x of origin, y offset, advance)."""
+    if not s:  # HarfBuzz gives None, not [], for an empty buffer
+        return ()
     tt, hbfont, _, _, _ = _font(font)
     buf = hb.Buffer()
     buf.add_str(s)

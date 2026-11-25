@@ -53,3 +53,15 @@ def test_i_dots():
 
 def test_dotless_differs():
     assert tp.text(0, 0, "Yin", "display-600", 128, "#000", dotless=True) != tp.text(0, 0, "Yin", "display-600", 128, "#000")
+
+
+def test_text_that_cleans_to_nothing_is_empty_not_a_crash():
+    assert tp.measure("🚀✨", "text-400", 13) == 0
+    assert tp.fit("数据", "text-400", 13, 400) == ""
+    assert tp.i_dots("🚀", "display-600", 128) == []
+    assert ET.fromstring(tp.text(0, 0, "🎉", "text-400", 13, "#000")).get("data-t") == ""
+
+
+def test_clean_drops_control_characters():
+    assert tp.clean("a\x00b\x07c\td", "text-400") == "abc d"
+    ET.fromstring(tp.text(0, 0, "a\x00b", "text-400", 13, "#000"))

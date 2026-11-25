@@ -15,16 +15,15 @@ import card_contributions
 import card_recent
 import card_streak
 import stats
-from theme import THEMES, W
+from theme import THEMES
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 
 
-def picture(stem: str, alt: str, width: str = "100%", href: str | None = None, align_top: bool = False) -> str:
+def picture(stem: str, alt: str, href: str | None = None) -> str:
     """One card as theme-aware README markup: GitHub serves the dark file to dark-mode visitors."""
-    align = ' align="top"' if align_top else ""
     out = (f'<picture><source media="(prefers-color-scheme: dark)" srcset="./{stem}-dark.svg">'
-           f'<img src="./{stem}-light.svg" width="{width}" alt="{escape(alt, quote=True)}"{align}></picture>')
+           f'<img src="./{stem}-light.svg" width="100%" alt="{escape(alt, quote=True)}"></picture>')
     return f'<a href="{escape(href, quote=True)}">{out}</a>' if href else out
 
 
@@ -56,31 +55,30 @@ def build(root: str, now: datetime) -> None:
             f.write(svg)
         written.add(path)
 
-    banner_md = recent_md = ""
     for theme in THEMES:
-        slices = card_banner.render(config, theme, activity)
-        for slug, svg, _, _ in slices:
-            write(slug, theme, svg)
+        write("banner", theme, card_banner.render(config, theme, activity))
         write("streak", theme, card_streak.render(contrib, theme, now))
         write("contributions", theme, card_contributions.render(contrib, theme, last_day))
-        recent = card_recent.render(activity, theme) if activity else []
-        for i, svg in enumerate(recent, 1):
-            write(f"recent-{i}", theme, svg)
+        recent = card_recent.render(activity, theme) if activity else None
+        if recent:
+            write("recent", theme, recent)
 
-    for path in glob.glob(os.path.join(profile, "recent-*.svg")) + glob.glob(os.path.join(profile, "banner*.svg")):
+    for path in glob.glob(os.path.join(profile, "recent*.svg")) + glob.glob(os.path.join(profile, "banner*.svg")):
         if path not in written:
-            os.remove(path)  # e.g. a repo dropped out of the last 30 days
+            os.remove(path)  # no qualifying repos any more, or files from an older layout
 
-    name, links = config["name"], config.get("links") or []
-    for slug, _, width, href in slices:
-        if slug == "banner-art":
-            alt = f"Banner artwork, {config['art'].get('credit', '')}".rstrip(", ")
-        else:
-            alt = f"{name}. {config['tagline']}" + "".join(f" {l['text']}: {l['url']}" for l in links)
-        banner_md += picture(f"profile/{slug}", alt, f"{width / W * 100:.3f}%", href)
-    for i, repo in enumerate((activity or {}).get("repos", [])[:len(recent)], 1):
-        alt = ("Recently. " if i == 1 else "") + f"{repo['name']}: {repo['commits']} commits in the last 30 days"
-        recent_md += picture(f"profile/recent-{i}", alt, "100%", repo["url"], align_top=True)
+    links, art = config.get("links") or [], config.get("art") or {}
+    banner_alt = f"{config['name']}. {config['tagline']}" + "".join(f" {l['text']}: {l['url']}" for l in links)
+    banner_md = picture("profile/banner", banner_alt, href=links[0]["url"] if links else None)
+    recent_md = credit_md = ""
+    if recent:
+        shown = activity["repos"][:card_recent.MAX_REPOS]
+        recent_alt = (f"Recently: {', '.join(r['name'] for r in shown)}. "
+                      f"{activity['totals']['commits']:,} commits in the last 30 days")
+        recent_md = picture("profile/recent", recent_alt,
+                            href=f"https://github.com/{contrib['username']}?tab=repositories")
+    if art.get("url") and art.get("credit"):
+        credit_md = f'<sub><a href="{escape(art["url"], quote=True)}">Banner {escape(art["credit"])}</a></sub>'
 
     weeks = stats.weekly_streak(contrib["days"], last_day)
     streak_alt = (f"{contrib['current_streak']['length']} day streak; {weeks} weeks in a row; "
@@ -91,7 +89,8 @@ def build(root: str, now: datetime) -> None:
     md = (md.replace("{{banner}}", banner_md)
             .replace("{{streak}}", picture("profile/streak", streak_alt))
             .replace("{{contributions}}", picture("profile/contributions", f"{window:,} contributions in the last six months"))
-            .replace("{{recent}}", recent_md))
+            .replace("{{recent}}", recent_md)
+            .replace("{{credit}}", credit_md))
     with open(os.path.join(root, "README.md"), "w") as f:
         f.write(md)
 
