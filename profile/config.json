@@ -1,0 +1,12 @@
+{
+  "label": "kevinyyin",
+  "name": "Kevin Yin",
+  "tagline": "Building stuff. Cognitive science and entrepreneurship at Penn.",
+  "links": [{"text": "LinkedIn", "url": "https://www.linkedin.com/in/kevinyinkyy"}],
+  "art": {
+    "strip": "profile/art/valley-strip.png",
+    "frames": 120, "cols": 12, "rows": 10, "fps": 12.5,
+    "frame_w": 314, "frame_h": 207, "inset": 4,
+    "credit": "art by LennSan", "url": null
+  }
+}
