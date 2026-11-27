@@ -1,10 +1,10 @@
 {
  "username": "kevinyyin",
- "fetched_at": "2026-11-26T16:50:23Z",
+ "fetched_at": "2026-11-27T16:35:41Z",
  "window_days": 30,
  "totals": {
   "repos": 13,
-  "commits": 389
+  "commits": 366
  },
  "repos": [
   {
@@ -155,27 +155,6 @@
    ]
   },
   {
-   "name": "videogen",
-   "url": "https://github.com/kevinyyin/videogen",
-   "description": "Code-only pipeline that turns a short JSON script into vertical 3D promo videos (Three.js, headless Chrome, ffmpeg)",
-   "language": "JavaScript",
-   "commits": 25,
-   "merged": 0,
-   "last_active": "2026-10-29",
-   "highlights": [
-    {
-     "kind": "commit",
-     "title": "docs: keep the write-up's account of where AI was used",
-     "date": "2026-10-29"
-    },
-    {
-     "kind": "commit",
-     "title": "docs: rewrite README and make docs stand alone",
-     "date": "2026-10-29"
-    }
-   ]
-  },
-  {
    "name": "calendarApp",
    "url": "https://github.com/kevinyyin/calendarApp",
    "description": "Friends-only merged Google Calendar view with live updates and a group free-time finder. Next.js, Supabase, Drizzle.",
@@ -192,6 +171,27 @@
     {
      "kind": "commit",
      "title": "chore: drop planning task numbers from comments",
+     "date": "2026-10-29"
+    }
+   ]
+  },
+  {
+   "name": "videogen",
+   "url": "https://github.com/kevinyyin/videogen",
+   "description": "Code-only pipeline that turns a short JSON script into vertical 3D promo videos (Three.js, headless Chrome, ffmpeg)",
+   "language": "JavaScript",
+   "commits": 2,
+   "merged": 0,
+   "last_active": "2026-10-29",
+   "highlights": [
+    {
+     "kind": "commit",
+     "title": "docs: keep the write-up's account of where AI was used",
+     "date": "2026-10-29"
+    },
+    {
+     "kind": "commit",
+     "title": "docs: rewrite README and make docs stand alone",
      "date": "2026-10-29"
     }
    ]

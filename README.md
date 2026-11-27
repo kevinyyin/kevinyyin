@@ -3,11 +3,11 @@
 
 <a href="https://www.linkedin.com/in/kevinyinkyy"><picture><source media="(prefers-color-scheme: dark)" srcset="./profile/banner-dark.svg"><img src="./profile/banner-light.svg" width="100%" alt="Kevin Yin. Building stuff. Cognitive science and entrepreneurship at Penn. LinkedIn: https://www.linkedin.com/in/kevinyinkyy"></picture></a>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="./profile/streak-dark.svg"><img src="./profile/streak-light.svg" width="100%" alt="43 day streak; 16 weeks in a row; 1,624 contributions in the last 12 months"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="./profile/streak-dark.svg"><img src="./profile/streak-light.svg" width="100%" alt="43 day streak; 16 weeks in a row; 1,625 contributions in the last 12 months"></picture>
 
-<picture><source media="(prefers-color-scheme: dark)" srcset="./profile/contributions-dark.svg"><img src="./profile/contributions-light.svg" width="100%" alt="1,623 contributions in the last six months"></picture>
+<picture><source media="(prefers-color-scheme: dark)" srcset="./profile/contributions-dark.svg"><img src="./profile/contributions-light.svg" width="100%" alt="1,624 contributions in the last six months"></picture>
 
-<a href="https://github.com/kevinyyin?tab=repositories"><picture><source media="(prefers-color-scheme: dark)" srcset="./profile/recent-dark.svg"><img src="./profile/recent-light.svg" width="100%" alt="Recently: hearth, Witness, lingual. 389 commits in the last 30 days"></picture></a>
+<a href="https://github.com/kevinyyin?tab=repositories"><picture><source media="(prefers-color-scheme: dark)" srcset="./profile/recent-dark.svg"><img src="./profile/recent-light.svg" width="100%" alt="Recently: hearth, Witness, lingual. 366 commits in the last 30 days"></picture></a>
 
 
 
