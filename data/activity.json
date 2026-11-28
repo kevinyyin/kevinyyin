@@ -1,10 +1,10 @@
 {
  "username": "kevinyyin",
- "fetched_at": "2026-11-27T16:35:41Z",
+ "fetched_at": "2026-11-28T15:28:04Z",
  "window_days": 30,
  "totals": {
-  "repos": 13,
-  "commits": 366
+  "repos": 7,
+  "commits": 344
  },
  "repos": [
   {
@@ -54,7 +54,7 @@
    "url": "https://github.com/kevinyyin/lingual",
    "description": "Two-way ASL translator and ASL course with a signing 3D avatar; runs in the browser or on an iPad in a plush toy.",
    "language": "Python",
-   "commits": 7,
+   "commits": 3,
    "merged": 1,
    "last_active": "2026-11-25",
    "highlights": [
@@ -71,32 +71,11 @@
    ]
   },
   {
-   "name": "Steadi",
-   "url": "https://github.com/kevinyyin/Steadi",
-   "description": "Home fall-risk screening on the CDC STEADI tests: an ESP32 motion belt, a one-button base station and a family dashboard.",
-   "language": "Python",
-   "commits": 4,
-   "merged": 1,
-   "last_active": "2026-11-25",
-   "highlights": [
-    {
-     "kind": "merged",
-     "title": "README: demo links, team and role up top",
-     "date": "2026-11-25"
-    },
-    {
-     "kind": "commit",
-     "title": "README: add demo links, team and role, headline results (#12)",
-     "date": "2026-11-25"
-    }
-   ]
-  },
-  {
    "name": "healthtracker",
    "url": "https://github.com/kevinyyin/healthtracker",
    "description": "Personal health dashboard that computes recovery, strain, sleep and VO2max scores from Google Health API data.",
    "language": "TypeScript",
-   "commits": 3,
+   "commits": 1,
    "merged": 1,
    "last_active": "2026-11-25",
    "highlights": [
@@ -108,6 +87,27 @@
     {
      "kind": "commit",
      "title": "README: add demo links, team and role, headline results (#1)",
+     "date": "2026-11-25"
+    }
+   ]
+  },
+  {
+   "name": "Steadi",
+   "url": "https://github.com/kevinyyin/Steadi",
+   "description": "Home fall-risk screening on the CDC STEADI tests: an ESP32 motion belt, a one-button base station and a family dashboard.",
+   "language": "Python",
+   "commits": 1,
+   "merged": 1,
+   "last_active": "2026-11-25",
+   "highlights": [
+    {
+     "kind": "merged",
+     "title": "README: demo links, team and role up top",
+     "date": "2026-11-25"
+    },
+    {
+     "kind": "commit",
+     "title": "README: add demo links, team and role, headline results (#12)",
      "date": "2026-11-25"
     }
    ]
@@ -138,7 +138,7 @@
    "url": "https://github.com/kevinyyin/ackygym",
    "description": "Mobile-first gym tracker for a household or small group: sets, routines, PRs, streaks and body weight. React + Supabase.",
    "language": "JavaScript",
-   "commits": 16,
+   "commits": 15,
    "merged": 0,
    "last_active": "2026-11-21",
    "highlights": [
@@ -151,122 +151,6 @@
      "kind": "commit",
      "title": "Draw under the iOS status bar instead of a white bar",
      "date": "2026-11-07"
-    }
-   ]
-  },
-  {
-   "name": "calendarApp",
-   "url": "https://github.com/kevinyyin/calendarApp",
-   "description": "Friends-only merged Google Calendar view with live updates and a group free-time finder. Next.js, Supabase, Drizzle.",
-   "language": "TypeScript",
-   "commits": 4,
-   "merged": 0,
-   "last_active": "2026-10-29",
-   "highlights": [
-    {
-     "kind": "commit",
-     "title": "chore: remove unused create-next-app template icons",
-     "date": "2026-10-29"
-    },
-    {
-     "kind": "commit",
-     "title": "chore: drop planning task numbers from comments",
-     "date": "2026-10-29"
-    }
-   ]
-  },
-  {
-   "name": "videogen",
-   "url": "https://github.com/kevinyyin/videogen",
-   "description": "Code-only pipeline that turns a short JSON script into vertical 3D promo videos (Three.js, headless Chrome, ffmpeg)",
-   "language": "JavaScript",
-   "commits": 2,
-   "merged": 0,
-   "last_active": "2026-10-29",
-   "highlights": [
-    {
-     "kind": "commit",
-     "title": "docs: keep the write-up's account of where AI was used",
-     "date": "2026-10-29"
-    },
-    {
-     "kind": "commit",
-     "title": "docs: rewrite README and make docs stand alone",
-     "date": "2026-10-29"
-    }
-   ]
-  },
-  {
-   "name": "towerdefensecc",
-   "url": "https://github.com/kevinyyin/towerdefensecc",
-   "description": "2D tower defense prototype in Godot 4.7: build pads, four tower types, a hero, an area spell and star upgrades",
-   "language": "GDScript",
-   "commits": 2,
-   "merged": 0,
-   "last_active": "2026-10-29",
-   "highlights": [
-    {
-     "kind": "commit",
-     "title": "chore: drop unused editor plugin from project settings",
-     "date": "2026-10-29"
-    },
-    {
-     "kind": "commit",
-     "title": "docs: add README with gameplay, architecture and setup",
-     "date": "2026-10-29"
-    }
-   ]
-  },
-  {
-   "name": "roommateapp",
-   "url": "https://github.com/kevinyyin/roommateapp",
-   "description": "Shared household app for roommates: split expenses, rotate chores, keep a grocery list, all synced in real time.",
-   "language": "TypeScript",
-   "commits": 2,
-   "merged": 0,
-   "last_active": "2026-10-29",
-   "highlights": [
-    {
-     "kind": "commit",
-     "title": "docs: tighten README and add status section",
-     "date": "2026-10-29"
-    },
-    {
-     "kind": "commit",
-     "title": "chore: drop design-tool comment from root layout and tooling ignores",
-     "date": "2026-10-29"
-    }
-   ]
-  },
-  {
-   "name": "studyai",
-   "url": "https://github.com/kevinyyin/studyai",
-   "description": "Turns notes, PDFs and images into flashcards and a condensed summary with the Gemini API.",
-   "language": "TypeScript",
-   "commits": 1,
-   "merged": 0,
-   "last_active": "2026-10-29",
-   "highlights": [
-    {
-     "kind": "commit",
-     "title": "docs: replace create-next-app README with project README",
-     "date": "2026-10-29"
-    }
-   ]
-  },
-  {
-   "name": "streetify",
-   "url": "https://github.com/kevinyyin/streetify",
-   "description": "On-device iOS app that helps blind and low-vision pedestrians judge traffic at unsignalized crossings.",
-   "language": "Swift",
-   "commits": 1,
-   "merged": 0,
-   "last_active": "2026-10-29",
-   "highlights": [
-    {
-     "kind": "commit",
-     "title": "docs: tidy README and repo for public viewing",
-     "date": "2026-10-29"
     }
    ]
   }
